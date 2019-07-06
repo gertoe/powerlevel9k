@@ -116,7 +116,7 @@ The segments that are currently available are:
     * `go_version` - Show the current GO version.
 * **Javascript / Node.js Segments:**
     * `node_version` - Show the version number of the installed Node.js.
-    * `nodeenv` - [nodeenv](https://github.com/ekalinin/nodeenv) prompt for displaying node version and environment name.
+    * [`nodeenv`](#nodeenv) - [nodeenv](https://github.com/ekalinin/nodeenv) prompt for displaying node version and environment name.
     * `nvm` - Show the version of Node that is currently active, if it differs from the version used by NVM
 * **PHP Segments:**
     * `php_version` - Show the current PHP version.
@@ -124,7 +124,7 @@ The segments that are currently available are:
     * [`symfony2_tests`](#symfony2_tests) - Show a ratio of test classes vs code classes for Symfony2.
     * `symfony2_version` - Show the current Symfony2 version, if you are in a Symfony2-Project dir.
 * **Python Segments:**
-    * `virtualenv` - Your Python [VirtualEnv](https://virtualenv.pypa.io/en/latest/).
+    * [`virtualenv`](#virtualenv) - Your Python [VirtualEnv](https://virtualenv.pypa.io/en/latest/).
     * [`anaconda`](#anaconda) - Your active [Anaconda](https://www.continuum.io/why-anaconda) environment.
     * `pyenv` - Your active python version as reported by the first word of [`pyenv version`](https://github.com/yyuu/pyenv). Note that the segment is not displayed if that word is _system_ i.e. the segment is inactive if you are using system python.
 * **Ruby Segments:**
@@ -208,6 +208,7 @@ systems without a battery). It is supported on both OSX and Linux (note that it 
 |`POWERLEVEL9K_BATTERY_LOW_THRESHOLD`|`10`|Threshold to consider battery level critical.|
 |`POWERLEVEL9K_BATTERY_LOW_COLOR`|`"red"`|Color to indicate critically low charge level.|
 |`POWERLEVEL9K_BATTERY_VERBOSE`|`true`|Display time remaining next to battery level.|
+|`POWERLEVEL9K_BATTERY_HIDE_ABOVE_THRESHOLD`|`unset`|Threshold from which the battery segment should not be displayed.|
 
 Note that you can [modify the `_FOREGROUND`
 color](https://github.com/bhilburn/powerlevel9k/wiki/Stylizing-Your-Prompt#segment-color-customization)
@@ -410,10 +411,10 @@ Customizations available are:
 |Default|Truncate whole directories from left. How many is defined by `POWERLEVEL9K_SHORTEN_DIR_LENGTH`|
 |`truncate_absolute_chars`|Truncates an absolute number of characters from the left such that the number of characters that your path displays (with or without `POWERLEVEL9K_SHORTEN_DELIMITER`) is no more than `POWERLEVEL9K_SHORTEN_DIR_LENGTH` + the length of `POWERLEVEL9K_SHORTEN_DELIMITER` |
 |`truncate_middle`|Truncates the middle part of a folder. E.g. you are in a folder named `~/MySuperProjects/AwesomeFiles/BoringOffice`, then it will truncated to `~/MyS..cts/Awe..les/BoringOffice`, if `POWERLEVEL9K_SHORTEN_DIR_LENGTH=3` is also set (controls the amount of characters to be left).|
-|`truncate_from_right`|Just leaves the beginning of a folder name untouched. E.g. your folders will be truncated like so: "/ro../Pr../office". How many characters will be untouched is controlled by `POWERLEVEL9K_SHORTEN_DIR_LENGTH`.|
-|`truncate_absolute`|Truncates everything exept the last few characters in the path. E.g. if you are in a folder named "~/Projects/powerlevel9k" and you have set `POWERLEVEL9K_SHORTEN_DIR_LENGTH=3`, you will get "..l9k".|
+|`truncate_from_right`|Just leaves the beginning of a folder name untouched. E.g. your folders will be truncated like so: `/ro../Pr../office`. How many characters will be untouched is controlled by `POWERLEVEL9K_SHORTEN_DIR_LENGTH`.|
+|`truncate_absolute`|Truncates everything exept the last few characters in the path. E.g. if you are in a folder named `~/Projects/powerlevel9k` and you have set `POWERLEVEL9K_SHORTEN_DIR_LENGTH=3`, you will get `..l9k`.|
 |`truncate_to_last`|Truncates everything before the last folder in the path.|
-|`truncate_to_first_and_last`|Truncate middle directories from the path. How many directories will be untouched is controlled by POWERLEVEL9K_SHORTER_DIR_LENGTH. E.g. if you are in a folder named "~/Projects/powerlevel9k" and you have set `POWERLEVEL9K_SHORTEN_DIR_LENGTH=1`, you will get "~/../powerlevel9k".||
+|`truncate_to_first_and_last`|Truncate middle directories from the path. How many directories will be untouched is controlled by `POWERLEVEL9K_SHORTEN_DIR_LENGTH`. E.g. if you are in a folder named `~/Projects/powerlevel9k` and you have set `POWERLEVEL9K_SHORTEN_DIR_LENGTH=1`, you will get `~/../powerlevel9k`.||
 |`truncate_to_unique`|Parse all parent path components and truncate them to the shortest unique length. If you copy & paste the result to a shell, after hitting `TAB` it should expand to the original path unambiguously.|
 |`truncate_with_package_name`|Search for a `package.json` or `composer.json` and prints the `name` field to abbreviate the directory path. The precedence and/or files could be set by `POWERLEVEL9K_DIR_PACKAGE_FILES=(package.json composer.json)`. If you have [jq](https://stedolan.github.io/jq/) installed, it will dramatically improve the speed of this strategy.|
 |`truncate_with_folder_marker`|Search for a file that is specified by `POWERLEVEL9K_SHORTEN_FOLDER_MARKER` and truncate everything before that (if found, otherwise stop on $HOME and ROOT).|
@@ -468,9 +469,9 @@ The `disk_usage` segment will show the usage level of the partition that your cu
 
 | Variable | Default Value | Description |
 |----------|---------------|-------------|
-|POWERLEVEL9K_DISK_USAGE_ONLY_WARNING|false|Hide the segment except when usage levels have hit warning or critical levels.|
-|POWERLEVEL9K_DISK_USAGE_WARNING_LEVEL|90|The usage level that triggers a warning state.|
-|POWERLEVEL9K_DISK_USAGE_CRITICAL_LEVEL|95|The usage level that triggers a critical state.|
+|`POWERLEVEL9K_DISK_USAGE_ONLY_WARNING`|false|Hide the segment except when usage levels have hit warning or critical levels.|
+|`POWERLEVEL9K_DISK_USAGE_WARNING_LEVEL`|90|The usage level that triggers a warning state.|
+|`POWERLEVEL9K_DISK_USAGE_CRITICAL_LEVEL`|95|The usage level that triggers a critical state.|
 
 ##### host
 
@@ -557,6 +558,12 @@ prompt itself.
 
 This only works on the left side.  On the right side it does nothing.
 
+##### nodeenv
+
+Shows the currently used [nodeenv](https://github.com/ekalinin/nodeenv). To avoid
+Nodeenvs activate command from interfering with Powerlevel9k, you should set
+`NODE_VIRTUAL_ENV_DISABLE_PROMPT=1` in your `~/.zshrc`.
+
 ##### rbenv
 
 This segment shows the version of Ruby being used when using `rbenv` to change your current Ruby stack.
@@ -565,10 +572,6 @@ It figures out the version being used by taking the output of the `rbenv version
 
 * If `rbenv` is not in $PATH, nothing will be shown.
 * By default, if the current local Ruby version is the same as the global Ruby version, nothing will be shown. See the configuration variable, below, to modify this behavior.
-
-Variable | Default Value | Description |
-|----------|---------------|-------------|
-|`POWERLEVEL9K_RBENV_ALWAYS`|'false'|Always show the `rbenv` segment, even if the local version matches the global.|
 
 | Variable | Default Value | Description |
 |----------|---------------|-------------|
@@ -724,6 +727,12 @@ you are using the [ZSH Line Editor](http://zsh.sourceforge.net/Doc/Release/Zsh-L
 |`POWERLEVEL9K_VI_COMMAND_MODE_STRING`|`"NORMAL"`|String to display while in 'Command' mode.|
 
 To hide the segment entirely when in `INSERT` mode, set `POWERLEVEL9K_VI_INSERT_MODE_STRING=''`
+
+##### virtualenv
+
+This segment shows your Python [VirtualEnv](https://virtualenv.pypa.io/en/latest/). To avoid
+VirtualEnvs activate command from interfering with Powerlevel9k, you should set
+`VIRTUAL_ENV_DISABLE_PROMPT=1` in your `~/.zshrc`.
 
 #### Unit Test Ratios
 
